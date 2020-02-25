@@ -1,0 +1,23 @@
+{
+  "name": "the-mind",
+  "version": "0.0.1",
+  "description": "(Hopefully) The code behind the online version of the game \"The Mind\".",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RazMag/the-mind.git"
+  },
+  "author": "RM+EV",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/RazMag/the-mind/issues"
+  },
+  "homepage": "https://github.com/RazMag/the-mind#readme",
+  "dependencies": {
+    "socket.io": "^2.3.0",
+    "uuid": "^7.0.0"
+  }
+}
