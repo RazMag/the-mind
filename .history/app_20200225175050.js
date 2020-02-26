@@ -1,2 +1,0 @@
-const Player = require('./player');
-
