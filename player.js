@@ -1,9 +1,11 @@
-const uuid = require('uuid/v4'); //TODO change to new import (if possible)
+//const uuid = require('uuid'); //TODO change to new import (if possible)
+const { v4: uuidv4 } = require('uuid');
 
 module.exports = class Player{
-    constructor(name){
+    constructor(name,socketID){
         this.name = name;
-        this.id = uuid();
+        this.id = uuidv4();
         this.hand = [];
+        this.socketId = socketID;
     }
 }

@@ -2,13 +2,92 @@
 <html lang="en">
 <head>
     <script src="/socket.io/socket.io.js"></script>
-    <script> var socket = io.connect('http://localhost');</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Server</title>
+    <style>
+        div {
+            margin: auto;
+            width: 30%;
+            align-items: center;
+            text-align: center;
+        }
+        table {
+            border: 1px solid black;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    </style>
     
 </head>
 <body>
-    test
+    <div>
+        <input id = "name" type="text">
+        <button id = "join" >JOIN</button>
+    </div><br>
+    <div><h2 id="uuidP"></h2></div>
+    <div>
+        <input id="number" type="text">
+        <button id="sendNumber">SEND</button>
+    </div>
+    <div>
+        <button id="start">START</button>
+    </div>
+    <div>
+        <p>Game</p>
+        <table>
+            <tr>
+                <th>Property</th>
+                <th>Value</th>
+            </tr>
+            <tr>
+                <td>Name</td>
+                <td id ='gameName'></td>
+            </tr>
+            <tr>
+                <td>Level</td>
+                <td id = "gameLevel"></td>
+            </tr>
+            <tr>
+                <td>Lives</td>
+                <td id = "gameLives"></td>
+            </tr>
+            <tr>
+                <td>Discard</td>
+                <td id= "gameDiscard"></td>
+            </tr>
+        </table>
+    </div>
 </body>
+<script>
+    var socket = io.connect('http://localhost');
+    document.getElementById("join").addEventListener("click", () => {
+        var name = document.getElementById('name').value;
+        socket.emit('join',name);
+    });
+    document.getElementById("sendNumber").addEventListener("click", () => {
+        var turn = []
+        turn.push(localStorage.getItem('me'));
+        turn.push(document.getElementById('number').value);
+        socket.emit('turn',turn);
+    });
+    document.getElementById("start").addEventListener("click", () => {
+        socket.emit('start',null);
+    });
+    socket.on('gameState', (data) => {
+        localStorage.setItem('game', JSON.stringify(data));
+        populateTables(data);
+        
+    });
+    socket.on('uuid', (data) => {
+        document.getElementById('uuidP').innerHTML = data;
+        localStorage.setItem('me', data);
+    });
+    function populateTables(game){
+        document.getElementById('gameName').innerHTML = game.name;
+        document.getElementById('gameLevel').innerHTML = game.level;
+        document.getElementById('gameLives').innerHTML = game.lives;
+        document.getElementById('gameDiscard').innerHTML = game.discard;
+    }
+</script>
 </html>
