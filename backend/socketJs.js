@@ -17,7 +17,6 @@ function start(){
     gio.sockets.emit('gameState',game); 
 }
 
- 
 module.exports = function socketJs(socket){
     connection(socket);
     socket.on('join', (data) => join(data,socket));
