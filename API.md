@@ -79,7 +79,7 @@ Example:
         "playing":true,
         "lives":1,
         "shur":1,
-        "discard":["74"],
+        "discard":[74],
         "players":[
         {
             "name":"playerName",
@@ -98,7 +98,7 @@ Example:
 - **playing** - ( type: bool ) state of the game. set to false before game starts and between levels.
 - **lives** - ( type: int ) Number of lives left. 5 at most 0 when game is lost
 - **shur** - ( type: int ) Number of shurikens left. 3 at most.
-- **discard** ( type: Array[string] ) array of discarded cards, from first to last. Note this is an array of *strings*.
+- **discard** ( type: Array[int] ) array of discarded cards, from first to last.
 - **players** - ( type: Player ) - array of players in the game. See [Player object](#player-object).
 - **spectators** - ( type: Player ) - array of spectators watching the game.
 - **lowestCard** - ( type: array[uuid(string),int] ) - the uuid of the player with the lowest card and the cards value. This is the correct next turn.

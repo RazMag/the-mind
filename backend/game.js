@@ -25,33 +25,65 @@ module.exports = class GameState{
         this.players.push(player);
         console.log(this.players);
     }
-    start(){ // TODO add fuctionaliti for starting specific levels
+    start(level){
+        this.discard = [];
         this.playing = true;
         let cards = [];
         let cardInserted = 0; // how many cards have been inserted into the deck to be dealt
         let num = 0;
-        switch(this.level) {
+        switch(level) { //what level are we on
             case(0) :
                 this.level = 1;
-                this.lives = this.players.length;
+                this.lives = this.players.length; 
                 break;
             case(2) :
-                this.shur++;
+                this.addShur();
+                break;
+            case(3) :
+                this.addLive();
+                break;
+            case(4) :
+                break;
+            case(5) :
+                this.addShur();
+                break;
+            case(6) :
+                this.addLive();
+                break;
+            case(7) :
+                break;
+            case(8) :
+                this.addShur();
+                break;
+            case(9) :
+                this.addLive();
+                break;
+            case(10) :
                 break;
         }
-        while (cardInserted < this.players.length*this.level){
+        while (cardInserted < this.players.length*this.level){ // generate hands for the amout of players times the current level
             num = getRndInteger(1,100);
             if( !(cards.includes(num)) ){ // check if card was already drawn
                 cards.push(num);
                 cardInserted++;
             }
         }
-        while(cards.length != 0){
+        while(cards.length != 0){ 
             this.players.forEach(player => {
                 player.hand.push(cards.pop());
             });
         }
         this.lowestCard = this.getLowest();
+    }
+    makeTurn(turn){
+        let currentPlayer = this.players.find(player => player.id == turn[0]);
+        currentPlayer.hand = currentPlayer.hand.filter(card => card != turn[1]);
+        this.discard.push(turn[1]);
+        if( turn[1] != this.lowestCard[1] ){
+            this.loseLife();
+        }
+        this.lowestCard = this.getLowest();
+        this.endTurn();
     }
     loseLife(){
         this.lives--;
@@ -61,16 +93,14 @@ module.exports = class GameState{
     }
     endTurn(){
         let end = true;
-        for ( let i = 0; i < this.players.length-1; i++ ) {
-            if( this.players[i].length > 0 ){
+        for ( let i = 0; i <= this.players.length-1; i++ ) {
+            if( this.players[i].hand.length > 0 ){
                 end = false;
                 break;
             }
-            
         }
         if(end){
-            this.level++;
-            this.start();
+            this.start(++this.level);
         }
     }
     getLowest(){
@@ -85,13 +115,15 @@ module.exports = class GameState{
         });
         return lowestCard;
     }
-    makeTurn(turn){
-        let currentPlayer = this.players.find(player => player.id == turn[0]);
-        currentPlayer.hand = currentPlayer.hand.filter(card => card != turn[1]);
-        this.discard.push(turn[1]);
-        if( turn[1] != this.lowestCard[1] ){
-            this.loseLife();
+    addShur(){
+        if(this.shur < 3){
+            this.shur++;
         }
-        this.lowestCard = this.getLowest();
     }
+    addLive(){
+        if( this.lives < 5){
+            this.lives++;
+        }
+    }
+    
 }

@@ -72,7 +72,7 @@
     document.getElementById("sendNumber").addEventListener("click", () => {
         var turn = []
         turn.push(localStorage.getItem('me'));
-        turn.push(document.getElementById('number').value);
+        turn.push(parseInt(document.getElementById('number').value));
         socket.emit('turn',turn);
     });
     document.getElementById("start").addEventListener("click", () => {

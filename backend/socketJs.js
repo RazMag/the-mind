@@ -1,5 +1,4 @@
 const Player = require('./Player');
-const Promise = require('promise');
 
 
 function emit(){
@@ -19,7 +18,7 @@ function sit(name,socket){
 }
 
 function start(){
-    game.start();
+    game.start(0);
     emit(); 
 }
 
