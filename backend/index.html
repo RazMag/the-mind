@@ -56,6 +56,10 @@
                 <td>Discard</td>
                 <td id= "gameDiscard"></td>
             </tr>
+            <tr>
+                <td>Playing</td>
+                <td id="gamePlaying"></td>
+            </tr>
         </table>
     </div>
 </body>
@@ -63,7 +67,7 @@
     var socket = io.connect('http://localhost');
     document.getElementById("join").addEventListener("click", () => {
         var name = document.getElementById('name').value;
-        socket.emit('join',name);
+        socket.emit('sit',name);
     });
     document.getElementById("sendNumber").addEventListener("click", () => {
         var turn = []
@@ -80,14 +84,15 @@
         
     });
     socket.on('uuid', (data) => {
-        document.getElementById('uuidP').innerHTML = data;
         localStorage.setItem('me', data);
+        document.getElementById('uuidP').innerHTML = data;
     });
     function populateTables(game){
         document.getElementById('gameName').innerHTML = game.name;
         document.getElementById('gameLevel').innerHTML = game.level;
         document.getElementById('gameLives').innerHTML = game.lives;
         document.getElementById('gameDiscard').innerHTML = game.discard;
+        document.getElementById('gamePlaying').innerHTML = game.playing;
     }
 </script>
 </html>
