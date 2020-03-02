@@ -1,4 +1,3 @@
-//const uuid = require('uuid'); //TODO change to new import (if possible)
 const { v4: uuidv4 } = require('uuid');
 
 module.exports = class Player{
@@ -7,5 +6,6 @@ module.exports = class Player{
         this.id = uuidv4();
         this.hand = [];
         this.socketId = socketID;
+        this.connected = true;
     }
 }

@@ -20,14 +20,13 @@ module.exports = class GameState{
         this.players = [];
         this.spectators = [];
         this.lowestCard = [ 'uuid', 101 ];
-        //this.won = false;
     }
     newPlayer(player){
         this.players.push(player);
         console.log(this.players);
     }
     start(level){
-        level != undefined ? this.level = level: level = ++this.level;
+        level != undefined ? this.level = level : level = ++this.level; //broken, why is this broken??
         this.newHands();
         this.playing = true;
         let cards = [];
@@ -62,8 +61,7 @@ module.exports = class GameState{
             case(10) :
                 break;
             case(11) :
-                //this.won = true;
-                return;
+                return; //dont deal hands
                 break;
         }
         while (cardInserted < this.players.length*this.level){ // generate hands for the amout of players times the current level
@@ -132,6 +130,7 @@ module.exports = class GameState{
     }
     newHands(){
         this.discard = [];
+        this.lowestCard = [ 'uuid', 101 ];
         this.players.forEach(player => {
             player.hand = [];
         });

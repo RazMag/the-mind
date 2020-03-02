@@ -42,7 +42,7 @@ This line will join a server hosted at localhost.
 
 A player that is sat down is included in the players array in the current [gameState object](#gamestate-event).
 In order for a player to sit down he need to initiate a `sit` event.
-A `sit` event's data in this players chosen name.
+A `sit` event's data is this player's chosen name.
 
 Example:
 
@@ -115,7 +115,7 @@ When level 10 is over the [gameState object](#gamestate-event) level is set to 1
         name:"playerName",
         id:"2b6cfc35-3b14-4b66-a444-e81ea70edd5a",
         "hand":[82,78],
-        "socketId":"wjKOOGvIkfRONIFAAAAC"
+        "socketId":"wjKOOGvIkfRONIFAAAAC" <!--TODO add connected--!>
     }
 
 ### Player Elements from top to bottom
@@ -124,4 +124,3 @@ When level 10 is over the [gameState object](#gamestate-event) level is set to 1
 - **id** - ( type: string ) This players randomly genarated id in UUID format.
 - **hand** - ( type: Array[int] ) - cards this player has.
 - **socketId** - ( type: string ) - the socket.io id that was used to create this player. Note: this was a testing tool, will probably be removed.
-

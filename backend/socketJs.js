@@ -35,4 +35,5 @@ module.exports = function socketJs(socket){
     socket.on('sit', (data) => sit(data,socket));
     socket.on('start', (data) => start(data));
     socket.on('turn', (data) => turn(data));
+    //socket.on('dissconect', )
 }
