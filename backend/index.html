@@ -31,6 +31,7 @@
         <button id="sendNumber">SEND</button>
     </div>
     <div>
+        <input id="startLevel" type="text" value="0">
         <button id="start">START</button>
     </div>
     <div>
@@ -66,17 +67,18 @@
 <script>
     var socket = io.connect('http://localhost');
     document.getElementById("join").addEventListener("click", () => {
-        var name = document.getElementById('name').value;
+        let name = document.getElementById('name').value;
         socket.emit('sit',name);
     });
     document.getElementById("sendNumber").addEventListener("click", () => {
-        var turn = []
+        let turn = []
         turn.push(localStorage.getItem('me'));
         turn.push(parseInt(document.getElementById('number').value));
         socket.emit('turn',turn);
     });
     document.getElementById("start").addEventListener("click", () => {
-        socket.emit('start',null);
+        let level = parseInt(document.getElementById("startLevel").value);
+        socket.emit('start',level);
     });
     socket.on('gameState', (data) => {
         localStorage.setItem('game', JSON.stringify(data));

@@ -20,20 +20,21 @@ module.exports = class GameState{
         this.players = [];
         this.spectators = [];
         this.lowestCard = [ 'uuid', 101 ];
+        //this.won = false;
     }
     newPlayer(player){
         this.players.push(player);
         console.log(this.players);
     }
     start(level){
-        this.discard = [];
+        level != undefined ? this.level = level: level = ++this.level;
+        this.newHands();
         this.playing = true;
         let cards = [];
         let cardInserted = 0; // how many cards have been inserted into the deck to be dealt
         let num = 0;
         switch(level) { //what level are we on
-            case(0) :
-                this.level = 1;
+            case(1) :
                 this.lives = this.players.length; 
                 break;
             case(2) :
@@ -59,6 +60,10 @@ module.exports = class GameState{
                 this.addLive();
                 break;
             case(10) :
+                break;
+            case(11) :
+                //this.won = true;
+                return;
                 break;
         }
         while (cardInserted < this.players.length*this.level){ // generate hands for the amout of players times the current level
@@ -100,7 +105,7 @@ module.exports = class GameState{
             }
         }
         if(end){
-            this.start(++this.level);
+            this.start();
         }
     }
     getLowest(){
@@ -125,5 +130,10 @@ module.exports = class GameState{
             this.lives++;
         }
     }
-    
+    newHands(){
+        this.discard = [];
+        this.players.forEach(player => {
+            player.hand = [];
+        });
+    }
 }

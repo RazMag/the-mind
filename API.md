@@ -5,8 +5,9 @@
   - [Socket.io events](#socketio-events)
   - [Joining](#joining)
   - [Sitting down](#sitting-down)
-  - [Starting a game / Starting next level](#starting-a-game--starting-next-level)
+  - [Starting a game / Starting a new level](#starting-a-game--starting-a-new-level)
   - [Making a turn](#making-a-turn)
+  - [Winning](#winning)
   - [**gameState object**](#gamestate-object)
     - [gameState Elements from top to bottom](#gamestate-elements-from-top-to-bottom)
   - [**Player object**](#player-object)
@@ -53,14 +54,15 @@ Example of the `uuid` event:
 
     ["uuid", "83f88097-dfa2-4375-9d4b-39d42a60c4a9"]
 
-## Starting a game / Starting next level
+## Starting a game / Starting a new level
 
-The start event will cause the server to incrament the level and deal new hands. Note: in the future starting specific level will be an option.
-The start event is just an event named `start` with `null` as the data
+The start event will cause the server to start a new level and deal new hands.
+if the event value is set to `null` then the next level will start.
+It it also possible to send an int as the data of the event and start that specific level.
 
 Example:
 
-    socket.emit('start',null);
+    socket.emit('start',5);
 
 ## Making a turn
 
@@ -69,7 +71,11 @@ Thew turn event's data is an array with the player's uuid and the card that was 
 
 Example:
 
-    socket.emit('turn',["83f88097-dfa2-4375-9d4b-39d42a60c4a9", "55"])
+    socket.emit('turn',["83f88097-dfa2-4375-9d4b-39d42a60c4a9", 55])
+
+## Winning
+
+When level 10 is over the [gameState object](#gamestate-event) level is set to 11 and all the players' hands are empty.
 
 ## **gameState object**
 

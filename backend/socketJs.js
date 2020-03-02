@@ -4,6 +4,9 @@ const Player = require('./Player');
 function emit(){
     gio.sockets.emit('gameState',game);
 }
+function emitWon(){
+    gio.sockets.emit('gamewon',true);
+}
 
 function connection(socket){
     console.log(`connected with id = ${socket.id}`)
@@ -17,8 +20,8 @@ function sit(name,socket){
     socket.emit( 'uuid',player.id ) // return this players uuid
 }
 
-function start(){
-    game.start(0);
+function start(level){
+    level != undefined ? game.start(parseInt(level)) : game.start();
     emit(); 
 }
 
@@ -30,6 +33,6 @@ function turn(turn){
 module.exports = function socketJs(socket){
     connection(socket);
     socket.on('sit', (data) => sit(data,socket));
-    socket.on('start', () => start());
+    socket.on('start', (data) => start(data));
     socket.on('turn', (data) => turn(data));
 }
