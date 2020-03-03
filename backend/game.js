@@ -26,44 +26,48 @@ module.exports = class GameState{
         console.log(this.players);
     }
     start(level){
-        level != undefined ? this.level = level : level = ++this.level; //broken, why is this broken??
         this.newHands();
+        if( level == undefined || level == 0 || level >= 11 ){
+            level >= 11 ? level = 11 : level = ++this.level;
+            switch(level) { //what level are we on
+                case(1) :
+                    break;
+                case(2) :
+                    this.addShur();
+                    break;
+                case(3) :
+                    this.addLive();
+                    break;
+                case(4) :
+                    break;
+                case(5) :
+                    this.addShur();
+                    break;
+                case(6) :
+                    this.addLive();
+                    break;
+                case(7) :
+                    break;
+                case(8) :
+                    this.addShur();
+                    break;
+                case(9) :
+                    this.addLive();
+                    break;
+                case(10) :
+                    break;
+                case(11) :
+                    this.level = 11;
+                    return; //dont deal hands
+            }
+        }
+        else{
+            this.level = level;
+        }
         this.playing = true;
         let cards = [];
         let cardInserted = 0; // how many cards have been inserted into the deck to be dealt
         let num = 0;
-        switch(level) { //what level are we on
-            case(1) :
-                this.lives = this.players.length; 
-                break;
-            case(2) :
-                this.addShur();
-                break;
-            case(3) :
-                this.addLive();
-                break;
-            case(4) :
-                break;
-            case(5) :
-                this.addShur();
-                break;
-            case(6) :
-                this.addLive();
-                break;
-            case(7) :
-                break;
-            case(8) :
-                this.addShur();
-                break;
-            case(9) :
-                this.addLive();
-                break;
-            case(10) :
-                break;
-            case(11) :
-                return; //dont deal hands
-                break;
-        }
         while (cardInserted < this.players.length*this.level){ // generate hands for the amout of players times the current level
             num = getRndInteger(1,100);
             if( !(cards.includes(num)) ){ // check if card was already drawn
@@ -129,6 +133,9 @@ module.exports = class GameState{
         }
     }
     newHands(){
+        if( this.lives == 0 ){
+            this.lives = this.players.length;
+        }
         this.discard = [];
         this.lowestCard = [ 'uuid', 101 ];
         this.players.forEach(player => {

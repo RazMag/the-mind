@@ -58,7 +58,7 @@ Example of the `uuid` event:
 
 The start event will cause the server to start a new level and deal new hands.
 if the event value is set to `null` then the next level will start.
-It it also possible to send an int as the data of the event and start that specific level.
+It it also possible to send an int as the data of the event and start that specific level. Note starting any level higher than 10 will not deal hands and set lowest card to `["uuid" : 101]`
 
 Example:
 
